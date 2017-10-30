@@ -7,7 +7,7 @@
 </head>  
 <body>  
 
-<select name="gridSize" id="gridSize">
+<select name="gridSize" id="gridSize" hidden>
   <option value="2">2 x 2</option>
   <option value="3">3 x 3</option>
   <option value="4">4 x 4</option>
@@ -30,7 +30,7 @@
 <br />
 <input type="button" id="btn" value="Convert to Image" />
 
-<div id="collage" class="grid"></div>  
+<div id="collage"></div>  
 <br>
 
 
@@ -49,6 +49,7 @@ $(document).ready(function() {
 	$('#submit').click(function () {
 	    document.getElementById("btn").style.display = "initial";
 		var gridSize = document.getElementById("gridSize").value;
+		document.getElementById("collage").classList.add('grid' + gridSize);
 		var total = gridSize * gridSize;
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
 	        var html = '';  
@@ -60,7 +61,7 @@ $(document).ready(function() {
         		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src="white.jpg" alt="" />';
+		        	//html += '<img src="white.jpg" alt="" />';
 		        } else {
 	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
 		        }
