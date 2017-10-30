@@ -1,12 +1,8 @@
 <!doctype html>  
 <html>  
 <head>  
-<title>Get the top artists and their playcounts using last.fm API</title>  
+<title>Collagio</title>  
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>  
-<script async src="https://html2canvas.hertzen.com/build/html2canvas.js"></script>
-<script async src="https://cdn.rawgit.com/eligrey/Blob.js/0cef2746414269b16834878a8abc52eb9d53e6bd/Blob.js"></script>
-<script async src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
-<script async src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 <style>
 .grid{
  width:1500px;
@@ -39,7 +35,7 @@
 }
 h4 {
    display: inline-block;
-   font-size: 14px; /*or whatever you want*/
+   font-size: 14px;
    color: #FFF;   
    float:left;
    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
@@ -74,26 +70,6 @@ $(document).ready(function() {
 	    });  
 	});
 });  
-
-
-$(function() { 
-    $("#btnSave").click(function() { 
-        html2canvas($("#collage"), {
-            onrendered: function(canvas) {
-                theCanvas = canvas;
-                document.body.appendChild(canvas);
-
-                // Convert and download as image 
-                Canvas2Image.saveAsPNG(canvas); 
-                $("#img-out").append(canvas);
-                // Clean up 
-                document.body.removeChild(canvas);
-            }
-        });
-    });
-}); 
-
-
 </script>  
 
 
