@@ -8,16 +8,26 @@
 <script>  
 $(document).ready(function() {  
 	$('#submit').click(function () {
-	    $.getJSON("http://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=" + document.getElementById("user").value + "&api_key=3e3d17156a343e8c0546d1d1909d6535&limit=10&format=json&callback=?", function(json) {  
+	    $.getJSON("http://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=2decf0b4c9bea14a0ac401123743ad07&limit=10&format=json&callback=?", function(json) {  
 	        var html = '';  
-	        $.each(json.topartists.artist, function(i, item) {  
+	        $.each(json.topalbums.album, function(i, item) {  
 	            html += "<p><a href=" + item.url + " target='_blank'>" + item.name + " - " + "Play count : " +item.playcount + "</a></p>";  
 	        });  
-	        $('#result').append(html);  
+	        $('#result').html(html);  
 	    });  
 	});
 });  
 </script>  
+
+<select name="period" id="period">
+  <option value="7day" selected>Last Week</option>
+  <option value="1month">Last Month</option>
+  <option value="3month">Last 3 Months</option>
+  <option value="6month">Last 6 Months</option>
+  <option value="12month">Last Year</option>
+  <option value="overall">All Time</option>
+</select>
+
 <input name="user" type="text" maxlength="60" id="user"/>
 <input type="submit" value="submit" name="submit" id="submit">
 <div id="result"></div>  
