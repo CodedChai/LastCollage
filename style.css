@@ -113,8 +113,8 @@ h4 {
 }
 /* Grid size 5 */
 .grid5{
- width:1500px;
- height:1500px;
+ max-width:1500px;
+ max-height:1500px;
  clear:both;
 }
 
