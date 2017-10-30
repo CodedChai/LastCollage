@@ -10,10 +10,36 @@
  clear:both;
 }
 
-.grid>img{
+.grid>.container>img{
  vertical-align:middle;
  max-width:100%; max-height:100%;
 }
+
+.grid>.container {
+    position: relative;
+    display: inline-block;
+}
+
+.grid>.container>.text-box {
+    position: absolute;    
+    height: 100%;
+    text-align: left;    
+    width: 100%;
+}
+.grid>.container>.text-box:before {
+   content: '';
+   display: inline-block;
+   height: 100%;
+   vertical-align: middle;
+}
+h4 {
+   display: inline-block;
+   font-size: 18px; /*or whatever you want*/
+   color: #FFF;   
+   float:left;
+   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
 </style>
 </head>  
 <body>  
@@ -25,10 +51,18 @@ $(document).ready(function() {
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
 	        var html = '';  
 	        $.each(json.topalbums.album, function(i, item) {  
+	        	// If the end of the grid row, add break
 	        	if(i % gridSize == 0){
 	        		html+= "<br/>";
 	        	}
-	            html += '<img src="'+item.image[3]['#text']+'" />';  
+        		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
+	        	// If the image is missing
+	        	if(item.image[3]['#text'] == ''){
+		        	html += '<img src=white.jpg alt="" />';
+		        } else {
+	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
+		        }
+		        html += "</div>";
 	        }); 
 	        $('#collage').html(html);  
 	    });  
