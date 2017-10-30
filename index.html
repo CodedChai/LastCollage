@@ -22,6 +22,7 @@
 .grid>.container {
     position: relative;
     display: inline-block;
+    width: 300px;
 }
 
 .grid>.container>.text-box {
@@ -62,7 +63,8 @@ $(document).ready(function() {
         		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src=white.jpg alt="" />';
+	        		console.log("Failed to load image: " + i);
+		        	html += '<img src="white.jpg" alt="" />';
 		        } else {
 	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
 		        }
