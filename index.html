@@ -8,10 +8,10 @@
 <script>  
 $(document).ready(function() {  
 	$('#submit').click(function () {
-	    $.getJSON("//ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=25&format=json&callback=?", function(json) {  
+	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=25&format=json&callback=?", function(json) {  
 	        var html = '';  
 	        $.each(json.topalbums.album, function(i, item) {  
-	            html += "<p><a href=" + item.url + " target='_blank'>" + item.name + " - " + "Play count : " +item.playcount + "</a></p>";  
+	            html += "<p><a href=" + item.url + " target='_blank'>" + item.name + " - " + "Play count : " + item.playcount + "</a></p>" +'<img src="'+item.image[2]['#text']+'" />';  
 	        });  
 	        $('#result').html(html);  
 	    });  
