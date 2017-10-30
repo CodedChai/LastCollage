@@ -18,7 +18,6 @@
 .grid>.container {
     position: relative;
     display: inline-block;
-    width: 300px;
 }
 
 .grid>.container>.text-box {
@@ -44,34 +43,6 @@ h4 {
 </style>
 </head>  
 <body>  
-<script>  
-$(document).ready(function() {  
-	$('#submit').click(function () {
-		var gridSize = document.getElementById("gridSize").value;
-		var total = gridSize * gridSize;
-	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
-	        var html = '';  
-	        $.each(json.topalbums.album, function(i, item) {  
-	        	// If the end of the grid row, add break
-	        	if(i % gridSize == 0){
-	        		html+= "<br/>";
-	        	}
-        		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
-	        	// If the image is missing
-	        	if(item.image[3]['#text'] == ''){
-	        		console.log("Failed to load image: " + i);
-		        	html += '<img src="white.jpg" alt="" />';
-		        } else {
-	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
-		        }
-		        html += "</div>";
-	        }); 
-	        $('#collage').html(html);  
-	    });  
-	});
-});  
-</script>  
-
 
 <select name="gridSize" id="gridSize">
   <option value="2">2 x 2</option>
@@ -129,7 +100,7 @@ $(document).ready(function() {
         		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	//html += '<img src=white.jpg alt="" />';
+		        	html += '<img src=white.jpg alt="" />';
 		        } else {
 	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
 		        }
