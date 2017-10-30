@@ -45,12 +45,17 @@
 
 
 $(document).ready(function() {  
+	// Don't show the "create image" button right away
     document.getElementById("btn").style.display = "none";
+    // This is when the user looks up their profile
 	$('#submit').click(function () {
+		// Now we can show the create image button
 	    document.getElementById("btn").style.display = "initial";
+	    // Get the size of the grid (currently 5x5 default) and set class of collage div
 		var gridSize = document.getElementById("gridSize").value;
 		document.getElementById("collage").classList.add('grid' + gridSize);
 		var total = gridSize * gridSize;
+		// Grab the json and put it into the page
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
 	        var html = '';  
 	        $.each(json.topalbums.album, function(i, item) {  
