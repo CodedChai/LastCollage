@@ -20,10 +20,12 @@
 <script>  
 $(document).ready(function() {  
 	$('#submit').click(function () {
-	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=25&format=json&callback=?", function(json) {  
+		var gridSize = document.getElementById("gridSize").value;
+		var total = gridSize * gridSize;
+	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
 	        var html = '';  
 	        $.each(json.topalbums.album, function(i, item) {  
-	        	if(i % 5 == 0){
+	        	if(i % gridSize == 0){
 	        		html+= "<br/>";
 	        	}
 	            html += '<img src="'+item.image[2]['#text']+'" />';  
@@ -33,6 +35,15 @@ $(document).ready(function() {
 	});
 });  
 </script>  
+
+<select name="gridSize" id="gridSize">
+  <option value="2">2 x 2</option>
+  <option value="3">3 x 3</option>
+  <option value="4">4 x 4</option>
+  <option value="5" selected>5 x 5</option>
+  <option value="6">6 x 6</option>
+  <option value="7">7 x 7</option>
+</select>
 
 <select name="period" id="period">
   <option value="7day" selected>Last Week</option>
@@ -46,8 +57,8 @@ $(document).ready(function() {
 <input name="user" type="text" maxlength="60" id="user"/>
 <input type="submit" value="submit" name="submit" id="submit">
 
-<br/>
-
+<div>
+</div>
 <div id="collage" class="grid"></div>  
 
 </body>  
