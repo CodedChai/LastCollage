@@ -12,13 +12,9 @@ Clicking on any of the album covers before turning it into an image will bring y
 
 # Site Example
 
-![alt text](https://i.imgur.com/MDhU4b7.png "Site Example")
-
-# Site With Collage
-
 You will notice that the collage is left aligned. That is to ensure that dom-to-image doesn't add a bunch of white space into the image. 
 
-![alt text](https://i.imgur.com/gi1es1k.jpg "Site Example")
+![alt text](https://i.imgur.com/wdKwuE4.jpg "Site Example")
 
 
 Sadly the site doesn't work on any of the mobile devices I have tested due to how dom-to-image works from what I can tell. If you happen to know how to get it to work feel free to send me a pull request.
