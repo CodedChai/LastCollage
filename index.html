@@ -34,14 +34,13 @@
   </form>
 </nav>
 
-
 <!--
 <input name="user" type="text" maxlength="60" id="user"/>
 <input type="submit" value="submit" name="submit" id="submit"> -->
 <br />
 <input type="button" id="btn" value="Convert to Image" />
 
-<div id="collage"></div>  
+<div id="collage" class="container"></div>  
 <br>
 
 
@@ -49,6 +48,7 @@
 <div id="here-appear-theimages">
 
 </div>
+
 <script type="text/javascript">
 	
 /*! dom-to-image 03-02-2016 */
@@ -64,23 +64,25 @@ $(document).ready(function() {
 	    document.getElementById("btn").style.display = "initial";
 	    // Get the size of the grid (currently 5x5 default) and set class of collage div
 		var gridSize = document.getElementById("gridSize").value;
-		document.getElementById("collage").classList.add('grid' + gridSize);
+		// Add the grid size to know the element size
+		//document.getElementById("collage").classList.add('grid' + gridSize);
 		var total = gridSize * gridSize;
 		// Grab the json and put it into the page
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
-	        var html = '';  
+	        var html = '<div class="row">';  
 	        $.each(json.topalbums.album, function(i, item) {  
 	        	// If the end of the grid row, add break
-	        	if(i % gridSize == 0){
-	        		html+= "<br/>";
+	        	if(i % gridSize == 0 && i != 0 && i != total){
+	        		html+= "<div class='w-100 nopadding'></div>";
 	        	}
-        		html += '<div id="container" class="container"><div class="text-box"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
+        		html += '<div class="col" id="itemColumn"><div class="caption post-content"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src="white.jpg" alt="" />';
+		        	//html += '<img src="white.jpg" class="img-fluid" alt="" />';
 		        } else {
-	            	html += '<img src="'+item.image[3]['#text']+'" alt="" />';  
+	            	html += '<img src="'+item.image[3]['#text']+'" class="img-fluid nopadding" alt="" />';  
 		        }
+		        // End itemContainer and column
 		        html += "</div>";
 	        }); 
 	        $('#collage').html(html);
