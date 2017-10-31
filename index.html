@@ -13,22 +13,22 @@
   <a class="navbar-brand">Last Collage</a>
   <form class="form-inline">
   	<select name="gridSize" id="gridSize" hidden>
-  <option value="2">2 x 2</option>
-  <option value="3">3 x 3</option>
-  <option value="4">4 x 4</option>
-  <option value="5" selected>5 x 5</option>
-  <option value="6">6 x 6</option>
-  <option value="7">7 x 7</option>
-</select>
+	  <option value="2">2 x 2</option>
+	  <option value="3">3 x 3</option>
+	  <option value="4">4 x 4</option>
+	  <option value="5" selected>5 x 5</option>
+	  <option value="6">6 x 6</option>
+	  <option value="7">7 x 7</option>
+	</select>
 
-<select name="period" id="period">
-  <option value="7day" selected>Last Week</option>
-  <option value="1month">Last Month</option>
-  <option value="3month">Last 3 Months</option>
-  <option value="6month">Last 6 Months</option>
-  <option value="12month">Last Year</option>
-  <option value="overall">All Time</option>
-</select>
+	<select name="period" id="period">
+	  <option value="7day" selected>Last Week</option>
+	  <option value="1month">Last Month</option>
+	  <option value="3month">Last 3 Months</option>
+	  <option value="6month">Last 6 Months</option>
+	  <option value="12month">Last Year</option>
+	  <option value="overall">All Time</option>
+	</select>
     <input class="form-control mr-sm-2" name="user" id="user" type="text" placeholder="Username">
     <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="submit" value="submit">Search</button>
   </form>
@@ -38,7 +38,7 @@
 <input name="user" type="text" maxlength="60" id="user"/>
 <input type="submit" value="submit" name="submit" id="submit"> -->
 <br />
-<input type="button" id="btn" value="Convert to Image" />
+<input type="button" id="convertImg" value="Convert to Image" />
 
 <div id="collage" class="container"></div>  
 <br>
@@ -57,11 +57,11 @@
 
 $(document).ready(function() {  
 	// Don't show the "create image" button right away
-    document.getElementById("btn").style.display = "none";
+    document.getElementById("convertImg").style.display = "none";
     // This is when the user looks up their profile
 	$('#submit').click(function () {
 		// Now we can show the create image button
-	    document.getElementById("btn").style.display = "initial";
+	    document.getElementById("convertImg").style.display = "initial";
 	    // Get the size of the grid (currently 5x5 default) and set class of collage div
 		var gridSize = document.getElementById("gridSize").value;
 		// Add the grid size to know the element size
@@ -78,7 +78,7 @@ $(document).ready(function() {
         		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src="black.jpg" class="lastfm-image" alt="" />';
+		        	//html += '<img src="black.jpg" class="lastfm-image" alt="" />';
 		        } else {
 	            	html += '<img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" />';  
 		        }
@@ -88,28 +88,25 @@ $(document).ready(function() {
 	        $('#collage').html(html);
 	    });  
 	});
+
+	$('#convertImg').click(function() {
+
+		var node = document.getElementById('collage');
+
+		domtoimage.toPng(node)
+	    .then(function(dataUrl) {
+		    console.log(dataUrl);
+	        document.getElementById("collage").style.display = "none";
+	        document.getElementById("btn").style.display = "none";
+	      	var img = new Image();
+	      	img.src = dataUrl;
+	      	document.getElementById("here-appear-theimages").appendChild(img);
+	    })
+	    .catch(function(error) {
+	      console.error('oops, something went wrong!', error);
+	    });
+	});
 });  
-
-
-document.getElementById('btn').addEventListener('click', function() {
-
-  var node = document.getElementById('collage');
-
-  domtoimage.toPng(node)
-    .then(function(dataUrl) {
-	    console.log(dataUrl);
-        document.getElementById("collage").style.display = "none";
-        document.getElementById("btn").style.display = "none";
-      	var img = new Image();
-      	img.src = dataUrl;
-      	document.getElementById("here-appear-theimages").appendChild(img);
-    })
-    .catch(function(error) {
-      console.error('oops, something went wrong!', error);
-    });
-
-});
-
 
 </script>
 </body>  
