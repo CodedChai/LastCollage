@@ -1,13 +1,18 @@
 <!doctype html>  
 <html>  
 <head>  
-<title>Collagio</title>  
+<title>Last Collage</title>  
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>  
-<link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>  
 <body>  
-
-<select name="gridSize" id="gridSize" hidden>
+<nav class="navbar navbar-dark bg-faded justify-content-between">
+  <a class="navbar-brand">Last Collage</a>
+  <form class="form-inline">
+  	<select name="gridSize" id="gridSize" hidden>
   <option value="2">2 x 2</option>
   <option value="3">3 x 3</option>
   <option value="4">4 x 4</option>
@@ -24,9 +29,15 @@
   <option value="12month">Last Year</option>
   <option value="overall">All Time</option>
 </select>
+    <input class="form-control mr-sm-2" name="user" id="user" type="text" placeholder="Username">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submit" value="submit">Search</button>
+  </form>
+</nav>
 
+
+<!--
 <input name="user" type="text" maxlength="60" id="user"/>
-<input type="submit" value="submit" name="submit" id="submit">
+<input type="submit" value="submit" name="submit" id="submit"> -->
 <br />
 <input type="button" id="btn" value="Convert to Image" />
 
