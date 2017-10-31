@@ -1,7 +1,7 @@
 
 #collage{
- max-width:1500px;
- max-height:1500px;
+ max-width:1000px;
+ max-height:1000px;
  clear:both;
  float:left;
 }
@@ -9,7 +9,7 @@
 #itemContainer {
     position: relative;
     display: inline-block;
-    width: 300px; height: 300px;
+    width: 200px; height: 200px;
     padding: 0px;
 }
 
@@ -50,7 +50,7 @@ h4 {
 .no-gutter > [class*='col-'] {
     padding-right:0;
     padding-left:0;
-    max-height: 300px;
+    max-height: 200px;
 }
 
 .row{
@@ -59,8 +59,8 @@ h4 {
 }
 
 .col{
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .lastfm-image {
