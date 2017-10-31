@@ -123,9 +123,9 @@ $(document).ready(function() {
         		html +='</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src="black.jpg" class="lastfm-image" alt="" />';
+		        	html += '<a href="' + item.url + '"><img src="black.jpg" class="lastfm-image" alt="" /></a>';
 		        } else {
-	            	html += '<img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" />';  
+	            	html += '<a href="' + item.url + '"><img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" /></a>';  
 		        }
 		        // End itemContainer and column
 		        html += "</div></div>";
