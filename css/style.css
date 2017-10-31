@@ -6,29 +6,26 @@
  float:left;
 }
 
-#collage>.row>#itemColumn>#itemContainer>img{
- vertical-align:middle;
- max-width:100%; max-height:100%;
-}
-
-#collage>.row>#itemColumn>#itemContainer {
+#itemContainer {
     position: relative;
     display: inline-block;
     max-width: 300px; max-height: 300px;
     padding: 0px;
 }
 
-#collage>#itemContainer>.text-box {
+#itemContainer>.text-box {
     position: absolute;    
     height: 100%;
     text-align: left;    
     width: 100%;
+    padding: 0px;
 }
-#collage>#itemContainer>.text-box:before {
+#itemContainer>.text-box:before {
    content: '';
    display: inline-block;
    height: 100%;
    vertical-align: middle;
+   padding: 0px;
 }
 h4 {
    display: inline-block;
@@ -47,9 +44,40 @@ h4 {
     top:0;
     left:0;
     position: absolute;
+    padding: 0px;
 }
 
-.img-fluid {
-  width: 300px;
-  height: 300px;
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+    max-height: 300px;
+}
+
+.row{
+    overflow: hidden; 
+}
+
+.col{
+    max-width: 300px;
+
+}
+
+.lastfm-image {
+  width: 100%; 
+  height: 100%;
+  vertical-align:middle;
+  box-sizing: content-box;
+  display: inline-block;
+width: 100% \9;
+}
+
+.lastfm-image:before {
+  width: 100%; 
+  height: 100%;
+  box-sizing: content-box;
+}
+.lastfm-image:after {
+  width: 100%; 
+  height: 100%;
+  box-sizing: content-box;
 }

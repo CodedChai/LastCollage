@@ -69,21 +69,21 @@ $(document).ready(function() {
 		var total = gridSize * gridSize;
 		// Grab the json and put it into the page
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
-	        var html = '<div class="row">';  
+	        var html = '<div class="row no-gutter">';  
 	        $.each(json.topalbums.album, function(i, item) {  
 	        	// If the end of the grid row, add break
 	        	if(i % gridSize == 0 && i != 0 && i != total){
 	        		html+= "<div class='w-100 nopadding'></div>";
 	        	}
-        		html += '<div class="col" id="itemColumn"><div class="caption post-content"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
+        		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	//html += '<img src="white.jpg" class="img-fluid" alt="" />';
+		        	html += '<img src="white.jpg" class="lastfm-image" alt="" />';
 		        } else {
-	            	html += '<img src="'+item.image[3]['#text']+'" class="img-fluid nopadding" alt="" />';  
+	            	html += '<img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" />';  
 		        }
 		        // End itemContainer and column
-		        html += "</div>";
+		        html += "</div></div>";
 	        }); 
 	        $('#collage').html(html);
 	    });  
