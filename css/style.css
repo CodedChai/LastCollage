@@ -41,8 +41,8 @@ h4 {
 }
 
 .post-content {
-    top:0;
-    left:0;
+    top:10px;
+    left:10px;
     position: absolute;
     padding: 0px;
 }
@@ -55,11 +55,12 @@ h4 {
 
 .row{
     overflow: hidden; 
+    padding: 0px;
 }
 
 .col{
     max-width: 300px;
-
+    max-height: 300px;
 }
 
 .lastfm-image {

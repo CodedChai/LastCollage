@@ -78,7 +78,7 @@ $(document).ready(function() {
         		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.artist.name + '<br />' + item.name +  '<br />Playcount: ' + item.playcount +'</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
-		        	html += '<img src="white.jpg" class="lastfm-image" alt="" />';
+		        	html += '<img src="black.jpg" class="lastfm-image" alt="" />';
 		        } else {
 	            	html += '<img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" />';  
 		        }
