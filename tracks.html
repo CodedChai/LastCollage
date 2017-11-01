@@ -26,10 +26,10 @@
 	    <a class="nav-link" href="index.html">Albums</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="artists.html">Artists</a>
+	    <a class="nav-link" href="artists.html">Artists</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="tracks.html">Tracks</a>
+	    <a class="nav-link active" href="tracks.html">Tracks</a>
 	  </li>
 	</ul>
 </nav>
@@ -44,6 +44,18 @@
 <div><br></div>
 <div class="container">
 	<form>
+		<div class="form-row">
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			    <input class="form-check-input" type="checkbox" id="displayArtist" value="displayArtist" checked>Artist Name
+			  </label>
+			</div>
+			<div class="form-check form-check-inline">
+			  <label class="form-check-label">
+			    <input class="form-check-input" type="checkbox" id="displayPlaycount" value="displayPlaycount" checked>Playcount
+			  </label>
+			</div>
+		</div>
 		<div class="form-row form-inline">
 			<select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="gridSize" id="gridSize">
 			  <option value="2">2 x 2</option>
@@ -110,15 +122,25 @@ $(document).ready(function() {
 		//document.getElementById("collage").classList.add('grid' + gridSize);
 		var total = gridSize * gridSize;
 		// Grab the json and put it into the page
-	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopArtists&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
+	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopTracks&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
 	        var html = '<div class="row no-gutter">';  
-	        $.each(json.topartists.artist, function(i, item) {  
+	        $.each(json.toptracks.track, function(i, item) {  
 	        	// If the end of the grid row, add break
 	        	if(i % gridSize == 0 && i != 0 && i != total){
 	        		html+= "<div class='w-100 nopadding'></div>";
 	        	}
-	        	// Display artist name
-        		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.name + '<br />' + '</h4></div>';
+        		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.name + '<br />'; 
+        		// If displaying artist name
+        		if(document.getElementById('displayArtist').checked){
+					html += item.artist.name + '<br />'; 
+        		}
+        	
+        		// If displaying playcount
+        		if(document.getElementById('displayPlaycount').checked){
+	        		html +=  'Playcount: ' + item.playcount;
+        		}
+
+        		html +='</h4></div>';
 	        	// If the image is missing
 	        	if(item.image[3]['#text'] == ''){
 		        	html += '<a href="' + item.url + '"><img src="black.jpg" class="lastfm-image" alt="" /></a>';
