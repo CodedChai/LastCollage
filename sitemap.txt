@@ -1,3 +1,4 @@
 http://lastcollage.com/index.html
 http://lastcollage.com/artists.html
 http://lastcollage.com/tracks.html
+http://lastcollage.com/collab.html

@@ -23,7 +23,7 @@
   <span class="navbar-brand mb-0 h1"><h2 itemprop="name">Last Collage</h2></span>
   <ul class="nav justify-content-end nav-pills">
 	  <li class="nav-item">
-	    <a class="nav-link active" href="index.html">Albums</a>
+	    <a class="nav-link" href="index.html">Albums</a>
 	  </li>
 	  <li class="nav-item">
 	    <a class="nav-link" href="artists.html">Artists</a>
@@ -32,14 +32,14 @@
 	    <a class="nav-link" href="tracks.html">Tracks</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="collab.html">Collab</a>
+	    <a class="nav-link active" href="collab.html">Collab</a>
 	  </li>
 	</ul>
 </nav>
 
 <br />
 <div class="container" id="bodytext">
-	<h1 itemprop="applicationCategory">The <b><i>Last.fm</i></b> collage generator</h1><h3>It allows you to create a collage of all the albums you have been listening to over different time spans. Then you can share that image with your friends or just get a better feel for what kind of music you really listen to!</h3><h5>It's easy to use! All you have to do is enter in your last.fm username and then hit the generate button! <br/>After that you can click on any album cover to take you to the last.fm page to learn more about it or you can convert it to an image to easily share with friends.</h5>
+	<h1 itemprop="applicationCategory">EXPERIMENTAL FEATURE<br>The <b><i>Last.fm</i></b> collage generator</h1><h3>It allows you to create a collage of all the albums you have been listening to over different time spans. Then you can share that image with your friends or just get a better feel for what kind of music you really listen to!</h3><h5>It's easy to use! All you have to do is enter in your last.fm username and then hit the generate button! <br/>After that you can click on any album cover to take you to the last.fm page to learn more about it or you can convert it to an image to easily share with friends.</h5>
 </div>
 <meta itemprop="operatingSystem" content="WindowsMacLinux">
 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -63,16 +63,6 @@
 			    <input class="form-check-input" type="checkbox" id="displayPlaycount" value="displayPlaycount" checked>Playcount
 			  </label>
 			</div>
-		</div>
-		<div class="form-row form-inline">
-			<select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="gridSize" id="gridSize">
-			  <option value="2">2 x 2</option>
-			  <option value="3">3 x 3</option>
-			  <option value="4">4 x 4</option>
-			  <option value="5" selected>5 x 5</option>
-			  <option value="6">6 x 6</option>
-			  <option value="10">10 x 10</option>
-			</select>
 
 			<select class="custom-select mb-2 mr-sm-2 mb-sm-0" name="period" id="period">
 			  <option value="7day">Last Week</option>
@@ -82,16 +72,25 @@
 			  <option value="12month">Last Year</option>
 			  <option value="overall">All Time</option>
 			</select>
-			<input class="form-control mb-2 mr-sm-2 mb-sm-0" name="user" id="user" type="text" placeholder="Last.fm Username">
+		</div>
+	
+		<div class="form-row form-inline">
+			<div  id="collabUsers">
+				<input class="form-control mb-2 mr-sm-2 mb-sm-0" name="user" id="user0" type="text" placeholder="Last.fm Username">
+				<input class="form-control mb-2 mr-sm-2 mb-sm-0" name="user" id="user1" type="text" placeholder="Last.fm Username">
+			</div>
+		</div>
+		<div class="form-row form-inline">
+
+			<input class="btn btn-outline-info mb-2 mr-sm-2 mb-sm-0" type="button" value="Add User" onClick="addInput('collabUsers');">
 			<button class="btn btn-outline-success mb-2 mr-sm-2 mb-sm-0" type="button" id="submit" value="submit">Generate</button>
 		</div>
 	</form>
 	<br>
 </div>
+
 <div id="collage" class="container"></div>  
 <br />
-
-
 
 <div id="here-appear-theimages"></div>
 <br /><br />
@@ -124,45 +123,62 @@ $(document).ready(function() {
 	$('#submit').click(function () {
 		// Now we can show the create image button
 	    document.getElementById("convertImg").style.display = "initial";
-	    // Get the size of the grid (currently 5x5 default) and set class of collage div
-		var gridSize = document.getElementById("gridSize").value;
-		// Add the grid size to know the element size
-		//document.getElementById("collage").classList.add('grid' + gridSize);
-		var total = gridSize * gridSize;
-		// Grab the json and put it into the page
-	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
-	        var html = '<div class="row no-gutter">';  
-	        $.each(json.topalbums.album, function(i, item) {  
-	        	// If the end of the grid row, add break
-	        	if(i % gridSize == 0 && i != 0 && i != total){
-	        		html+= "<div class='w-100 nopadding'></div>";
-	        	}
-        		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>';
-        		// If displaying artist name
-        		if(document.getElementById('displayArtist').checked){
-					html += item.artist.name + '<br />'; 
-        		}
-        		// If displaying album name
-        		if(document.getElementById('displayAlbum').checked){
-					html += item.name + '<br />'; 
-        		}
-        		// If displaying playcount
-        		if(document.getElementById('displayPlaycount').checked){
-	        		html +=  'Playcount: ' + item.playcount;
-        		}
+		// Get total of images to put in collage
+		var total = getTotal();
+		var gridSize = Math.sqrt(total);
+		var gridIndex = 0;
+		var retrieveAmount = (total/counter);
+		var curUser = '';
+		for(userIndex = 0; userIndex < counter; userIndex++){
+			curUser = document.getElementById("user"+userIndex).value;
+			var collagehtml = '<div class="row no-gutter">';
+			// Grab the json and put it into the page
+	    	$.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + curUser + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + retrieveAmount + "&format=json&callback=?", 
+	    		// Loop through retrieved data
+	    		function(json) { $.each(json.topalbums.album, function(i, item) {  
+    				if(userIndex == 0){
+    					collagehtml += '<div class="row no-gutter">'; 
+					} 
+		        	// If the end of the grid row, add break
+		        	console.log(gridIndex);
+		        	console.log(gridSize);
+		        	if(gridIndex % gridSize == 0){
+		        		collagehtml += "<div class='w-100 nopadding'></div>";
+		        	}
+		        	gridIndex++;
+		        	var curUserIndex = Math.trunc(gridIndex/((total + 1)/counter));
+		        	//document.getElementById("user"+userIndex).value;
+					console.log(Math.trunc(curUserIndex));
+					console.log(json.user);
+	        		collagehtml += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>'+ document.getElementById("user"+curUserIndex).value + '<br />';
+	        		// If displaying artist name
+	        		if(document.getElementById('displayArtist').checked){
+						collagehtml += item.artist.name + '<br />'; 
+	        		}
+	        		// If displaying album name
+	        		if(document.getElementById('displayAlbum').checked){
+						collagehtml += item.name + '<br />'; 
+	        		}
+	        		// If displaying playcount
+	        		if(document.getElementById('displayPlaycount').checked){
+		        		collagehtml +=  'Playcount: ' + item.playcount;
+	        		}
 
-        		html +='</h4></div>';
-	        	// If the image is missing
-	        	if(item.image[3]['#text'] == ''){
-		        	html += '<a href="' + item.url + '"><img src="black.jpg" class="lastfm-image" alt="" /></a>';
-		        } else {
-	            	html += '<a href="' + item.url + '"><img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" /></a>';  
-		        }
-		        // End itemContainer and column
-		        html += "</div></div>";
-	        }); 
-	        $('#collage').html(html);
-	    });  
+	        		collagehtml +='</h4></div>';
+		        	// If the image is missing
+		        	if(item.image[3]['#text'] == ''){
+			        	collagehtml += '<a href="' + item.url + '"><img src="black.jpg" class="lastfm-image" alt="" /></a>';
+			        } else {
+		            	collagehtml += '<a href="' + item.url + '"><img src="'+item.image[3]['#text']+'" class="lastfm-image" alt="" /></a>';  
+			        }
+			        // End itemContainer and column
+			        collagehtml += "</div></div>";
+    		        // End retrieved data function
+		        }); 
+		        $('#collage').html(collagehtml);
+		});
+
+	    }
 	});
 
 	$('#convertImg').click(function() {
@@ -197,6 +213,35 @@ console.log(jQuery.browser.mobile);
 if(jQuery.browser.mobile == true){
 	var html = 'Mobile does not support converting to an image at the moment. Please feel free to take a screenshot instead.'
 	$('#bodytext').append(html);
+}
+
+// For multiple input
+var counter = 2;
+var limit = 7;
+function addInput(){
+     if (counter == limit)  {
+          alert("You have reached the limit of adding " + counter + " inputs");
+     }
+     else {
+          html = '<input class="form-control mb-2 mr-sm-2 mb-sm-0" name="user" id="user' + counter + '" type="text" placeholder="Last.fm Username">';
+          $('#collabUsers').append(html);
+          counter++;
+     }
+}
+
+function getTotal(){
+	// 2, 3, 4, 6
+	if(36 % counter == 0){
+		return 36;
+	}
+	// 5
+	if(25 % counter == 0){
+		return 25;
+	}
+	// 7
+	if(49 % counter == 0){
+		return 49;
+	}
 }
 </script>
 </body>  
