@@ -132,7 +132,7 @@ $(document).ready(function() {
         		html += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>' + item.name + '<br />'; 
         		// If displaying artist name
         		if(document.getElementById('displayArtist').checked){
-					html += item.artist.name + '<br />'; 
+					html += 'by ' + item.artist.name + '<br />'; 
         		}
         	
         		// If displaying playcount
