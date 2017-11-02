@@ -230,7 +230,8 @@ var counter = 2;
 var limit = 7;
 function addInput(){
      if (counter == limit)  {
-          alert("You have reached the limit of adding " + counter + " inputs");
+        //alert("You have reached the limit of adding " + counter + " inputs");
+		alertify.warning("You have reached the limit of adding " + counter + " user inputs.");
      }
      else {
           html = '<input class="form-control mb-2 mr-sm-2 mb-sm-0" name="user" id="user' + counter + '" type="text" placeholder="Last.fm Username">';
