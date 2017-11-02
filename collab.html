@@ -135,7 +135,8 @@ $(document).ready(function() {
 			// Grab the json and put it into the page
 	    	$.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + curUser + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + retrieveAmount + "&format=json&callback=?", 
 	    		// Loop through retrieved data
-	    		function(json) { $.each(json.topalbums.album, function(i, item) {  
+	    		function(json) { 
+	    			$.each(json.topalbums.album, function(i, item) {  
     				if(userIndex == 0){
     					collagehtml += '<div class="row no-gutter">'; 
 					} 
@@ -146,11 +147,8 @@ $(document).ready(function() {
 		        		collagehtml += "<div class='w-100 nopadding'></div>";
 		        	}
 		        	gridIndex++;
-		        	var curUserIndex = Math.trunc(gridIndex/((total + 1)/counter));
-		        	//document.getElementById("user"+userIndex).value;
-					console.log(Math.trunc(curUserIndex));
-					console.log(json.user);
-	        		collagehtml += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>'+ document.getElementById("user"+curUserIndex).value + '<br />';
+					console.log(json.topalbums['@attr'].user);
+	        		collagehtml += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>'+ document.getElementById("user"+ json.topalbums['@attr'].user + '<br />';
 	        		// If displaying artist name
 	        		if(document.getElementById('displayArtist').checked){
 						collagehtml += item.artist.name + '<br />'; 
