@@ -141,14 +141,11 @@ $(document).ready(function() {
     					collagehtml += '<div class="row no-gutter">'; 
 					} 
 		        	// If the end of the grid row, add break
-		        	console.log(gridIndex);
-		        	console.log(gridSize);
 		        	if(gridIndex % gridSize == 0){
 		        		collagehtml += "<div class='w-100 nopadding'></div>";
 		        	}
 		        	gridIndex++;
-					console.log(json.topalbums['@attr'].user);
-	        		collagehtml += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>'+ document.getElementById("user"+ json.topalbums['@attr'].user + '<br />';
+	        		collagehtml += '<div class="col" id="itemColumn"><div class="container nopadding" id="itemContainer"><div class="caption post-content"><h4>'+ json.topalbums['@attr'].user + '<br />';
 	        		// If displaying artist name
 	        		if(document.getElementById('displayArtist').checked){
 						collagehtml += item.artist.name + '<br />'; 
