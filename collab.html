@@ -136,6 +136,10 @@ $(document).ready(function() {
 	    	$.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + curUser + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + retrieveAmount + "&format=json&callback=?", 
 	    		// Loop through retrieved data
 	    		function(json) { 
+	    			if(json.error == 6){
+	    				alert("User not found in last.fm database.");
+	    				return;
+	    			}
 	    			$.each(json.topalbums.album, function(i, item) {  
     				if(userIndex == 0){
     					collagehtml += '<div class="row no-gutter">'; 

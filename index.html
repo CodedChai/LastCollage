@@ -131,6 +131,10 @@ $(document).ready(function() {
 		var total = gridSize * gridSize;
 		// Grab the json and put it into the page
 	    $.getJSON("https://ws.audioscrobbler.com/2.0/?method=user.getTopAlbums&user=" + document.getElementById("user").value + "&period=" + document.getElementById("period").value + "&api_key=4881be5fb2766f1d9be846757de70de1&limit=" + total + "&format=json&callback=?", function(json) {  
+	    	if(json.error == 6){
+				alert("User not found in last.fm database.");
+				return;
+			}
 	        var html = '<div class="row no-gutter">';  
 	        $.each(json.topalbums.album, function(i, item) {  
 	        	// If the end of the grid row, add break
