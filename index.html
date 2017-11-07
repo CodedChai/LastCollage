@@ -55,7 +55,7 @@
 <meta itemprop="operatingSystem" content="WindowsMacLinux">
 <span itemprop="author" itemscope itemtype="http://schema.org/Person">
 <meta itemprop="name" content="Connor Hasting"></span></span>
-<div><br></div>
+<div class="container" id="isMobile"><br></div>
 <div class="container">
 	<form>
 		<div class="form-row">
@@ -211,7 +211,7 @@ console.log(jQuery.browser.mobile);
 // Alert anyone on mobile that you can't convert to image
 if(jQuery.browser.mobile == true){
 	var html = 'Mobile does not support converting to an image at the moment. Please feel free to take a screenshot instead.'
-	$('#bodytext').append(html);
+	$('#isMobile').append(html);
 }
 </script>
 </body>  
