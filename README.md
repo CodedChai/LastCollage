@@ -10,6 +10,10 @@ Clicking on any of the album covers before turning it into an image will bring y
 
 ![alt text](https://i.imgur.com/1c6jpvO.png "5x5 Collage Example")
 
+# Collab Example
+
+![alt text](blob:https://imgur.com/868a547c-25ae-491d-8611-876942ce9482 "3 Person Collab Example")
+
 # Site Example
 
 You will notice that the collage is left aligned. That is to ensure that dom-to-image doesn't add a bunch of white space into the image. 
