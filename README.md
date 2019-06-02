@@ -12,7 +12,7 @@ Clicking on any of the album covers before turning it into an image will bring y
 
 # Collab Example
 
-![alt text](blob:https://imgur.com/868a547c-25ae-491d-8611-876942ce9482 "3 Person Collab Example")
+![alt text](https://imgur.com/QX9RE2z "3 Person Collab Example")
 
 # Site Example
 
