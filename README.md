@@ -21,4 +21,4 @@ You will notice that the collage is left aligned. That is to ensure that dom-to-
 ![alt text](https://i.imgur.com/tFDV00Z.jpg "Site Example")
 
 
-Sadly the site doesn't work on any of the mobile devices I have tested due to how dom-to-image works from what I can tell. If you happen to know how to get it to work feel free to send me a pull request.
+Sadly the site doesn't work on any of the mobile devices I have tested. This is due to how dom-to-image works from what I can tell. If you happen to know how to get it to work feel free to send me a pull request.
